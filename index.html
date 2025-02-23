@@ -16,6 +16,13 @@
             overflow: hidden;
             margin: auto;
         }
+        @media (max-width: 600px) {
+          .slider {
+            width: 100%; /* Ширина встановлена як 100% ширини екрану */
+            height: 350px; /* Задаємо конкретну висоту, змініть за необхідністю */
+            overflow: hidden; /* Прибираємо зайвий контент */
+          }
+        }
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
