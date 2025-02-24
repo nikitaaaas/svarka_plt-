@@ -23,6 +23,8 @@
             overflow: hidden; /* Прибираємо зайвий контент */
           }
         }
+
+
         .slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
@@ -53,10 +55,10 @@
     <!-- Навігація -->
     <nav class="flex items-center justify-between bg-white shadow-lg p-4 w-full max-w-screen-lg">
         <div class="flex items-center">
-            <div class="bg-yellow-400 p-2 rounded-full text-black font-bold text-lg">LOGO</div>
+            <a href="index.html" class="bg-yellow-400 p-2 rounded-full text-black font-bold text-lg">LOGO</a>
         </div>
         <ul class="flex-1 flex justify-center space-x-6 text-gray-800 font-semibold">
-            <li><a href="#" class="hover:text-yellow-500">Наші послуги</a></li>
+            <li><a href="menu.html" class="hover:text-yellow-500">Наші послуги</a></li>
             <li><a href="#" class="hover:text-yellow-500">Про нас</a></li>
         </ul>
         <div>
@@ -90,17 +92,71 @@
             </div>
         </div>
 
-        <!-- Меню під слайдером, трохи правіше -->
+        <!-- Меню під слайдером -->
         <aside class="w-full lg:w-60 bg-[rgb(20,33,61)] p-6 shadow-lg mt-6 ml-auto">
-            <h3 class="block text-[rgb(255,255,255)] text-lg font-bold mb-4">Наші послуги</h3>
-            <ul class="space-y-4">
-                <li><a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500">Меблі</a></li>
-                <li><a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500">Металоконструкції</a></li>
-                <li><a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500">Зварювальні послуги</a></li>
-                <li><a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500">Лазерна різка</a></li>
-                <li><a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500">суп з фрікадельками</a></li>
-            </ul>
-        </aside>
+    <h3 class="block text-[rgb(255,255,255)] text-lg font-bold mb-4">Наші послуги</h3>
+    <ul class="space-y-4">
+        <!-- Меблі -->
+        <li class="relative">
+            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'furnitureMenu')">Меблі</a>
+            <div id="furnitureMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
+                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
+                    <li><a href="#" class="block hover:text-orange-500">Стіл</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Стілець</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Диван</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Шафа</a></li>
+                </ul>
+            </div>
+        </li>
+        
+        <!-- Металоконструкції -->
+        <li class="relative">
+            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'metalMenu')">Металоконструкції</a>
+            <div id="metalMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
+                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
+                    <li><a href="#" class="block hover:text-orange-500">Ангари</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Каркаси</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Перила</a></li>
+                </ul>
+            </div>
+        </li>
+        
+        <!-- Зварювальні послуги -->
+        <li class="relative">
+            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'weldingMenu')">Зварювальні послуги</a>
+            <div id="weldingMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
+                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
+                    <li><a href="#" class="block hover:text-orange-500">Електрозварювання</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Аргонне зварювання</a></li>
+                </ul>
+            </div>
+        </li>
+        
+        <!-- Лазерна різка -->
+        <li class="relative">
+            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'laserMenu')">Лазерна різка</a>
+            <div id="laserMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
+                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
+                    <li><a href="#" class="block hover:text-orange-500">Різка металу</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Різка пластику</a></li>
+                </ul>
+            </div>
+        </li>
+        
+        <!-- Суп з фрикадельками -->
+        <li class="relative">
+            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'soupMenu')">Суп з фрикадельками</a>
+            <div id="soupMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
+                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
+                    <li><a href="#" class="block hover:text-orange-500">Класичний</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">Гострий</a></li>
+                    <li><a href="#" class="block hover:text-orange-500">З сиром</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</aside>
+
     </div>
 
     <!-- Карта з Африкою -->
@@ -146,6 +202,23 @@
         </div>
     </div>
 
+    <!-- код  под меню -->
+    <script>
+        function toggleMenu(event, menuId) {
+            event.preventDefault();
+            let menu = document.getElementById(menuId);
+            if (menu.classList.contains("opacity-100")) {
+                menu.classList.remove("opacity-100", "visible");
+                menu.classList.add("opacity-0", "invisible");
+            } else {
+                menu.classList.remove("opacity-0", "invisible");
+                menu.classList.add("opacity-100", "visible");
+            }
+        }
+    </script>
+
+
+    <!-- код для тгбот адміна -->
     <script>
 
         function openModal() {
@@ -195,7 +268,7 @@
 
 
 
-
+    <!-- код слайдера -->
     <script>
         let currentIndex = 0;
         const slides = document.querySelector(".slides");
@@ -222,4 +295,3 @@
     </script>
 </body>
 </html>
-
