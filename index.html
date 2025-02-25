@@ -48,6 +48,101 @@
         }
         .prev { left: 5px; }
         .next { right: 5px; }
+
+
+        header .btn {
+            padding: 10px 25px;
+            background-color: #e52e71;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        header .btn:hover {
+            background-color: #ff8a00;
+        }
+
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .close {
+            color: #ff8a00;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #e52e71;
+        }
+        .service {
+            display: none;
+        }
+        .service.active {
+            display: block;
+        }
+        .service img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .navigation-buttons button {
+            background-color: #e52e71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            margin: 0 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .navigation-buttons button:hover {
+            background-color: #ff8a00;
+        }
+
+        .book-now { 
+            background-color: #e52e71;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .book-now:hover {
+            background-color: #ff8a00;
+        }
+
     </style>
 </head>
 <body class="flex flex-col items-center">
@@ -98,16 +193,19 @@
     <ul class="space-y-4">
         <!-- Меблі -->
         <li class="relative">
-            <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'furnitureMenu')">Меблі</a>
-            <div id="furnitureMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
-                <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
-                    <li><a href="#" class="block hover:text-orange-500">Стіл</a></li>
-                    <li><a href="#" class="block hover:text-orange-500">Стілець</a></li>
-                    <li><a href="#" class="block hover:text-orange-500">Диван</a></li>
-                    <li><a href="#" class="block hover:text-orange-500">Шафа</a></li>
+            <a href="#" class="block text-white hover:text-orange-500" onclick="toggleMenu(event, 'furnitureMenu')">Меблі</a>
+            <div id="furnitureMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300 bg-[rgb(20,33,61)] text-white w-40 p-2 shadow-lg text-center">
+                <ul class="flex flex-col space-y-2">
+                    <button class="btn open-modal w-full"><li><a href="#" class="block hover:text-orange-500">Стіл</a></li></button>
+                    <button class="btn open-modal w-full"><li><a href="#" class="block hover:text-orange-500">Стілець</a></li></button>
+                    <button class="btn open-modal w-full"><li><a href="#" class="block hover:text-orange-500">Диван</a></li></button>
+                    <button class="btn open-modal w-full"><li><a href="#" class="block hover:text-orange-500">Шафа</a></li></button>
                 </ul>
             </div>
         </li>
+
+
+
         
         <!-- Металоконструкції -->
         <li class="relative">
@@ -202,6 +300,85 @@
         </div>
     </div>
 
+    <div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="close-modal">&times;</span>
+        <div class="service-list">
+            <div class="service active">
+                <img src="photo1.jpg" alt="Освітлення коренів">
+                <h3>Освітлення коренів</h3>
+                <p>Ціна: договіірна</p>
+            </div>
+            <div class="service">
+                <img src="photo2.jpg" alt="Фарбування короткого волосся">
+                <h3>Фарбування короткого волосся</h3>
+                <p>Ціна: договіірна.</p>
+            </div>
+            <div class="service">
+                <img src="photo3.jpg" alt="Фарбування середнього волосся">
+                <h3>Фарбування середнього волосся</h3>
+                <p>Ціна: договіірна.</p>
+            </div>
+            <div class="service">
+                <img src="photo2.jpg" alt="Фарбування довгого волосся">
+                <h3>Фарбування довгого волосся</h3>
+                <p>договіірна.</p>
+            </div>
+        </div>
+        <div class="navigation-buttons">
+            <button id="prev-service">Попередня</button>
+            <button id="next-service">Наступна</button>
+        </div>
+        <a href="https://t.me/nikitylichka" class="book-now">Записатися зараз</a>
+    </div>
+</div>
+
+
+<!-- код для появляючого вото -->
+<script>
+   // Modal functionality
+const modal = document.getElementById("modal");
+const openModalBtns = document.querySelectorAll(".open-modal"); // Отримуємо всі кнопки
+const closeModalBtn = document.getElementById("close-modal");
+const services = document.querySelectorAll(".service");
+const prevBtn = document.getElementById("prev-service");
+const nextBtn = document.getElementById("next-service");
+let currentServiceIndex = 0;
+
+openModalBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        modal.style.display = "block";
+    });
+});
+
+closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
+
+function updateServiceDisplay() {
+    services.forEach((service, index) => {
+        service.classList.toggle("active", index === currentServiceIndex);
+    });
+}
+
+prevBtn.addEventListener("click", () => {
+    currentServiceIndex = (currentServiceIndex - 1 + services.length) % services.length;
+    updateServiceDisplay();
+});
+
+nextBtn.addEventListener("click", () => {
+    currentServiceIndex = (currentServiceIndex + 1) % services.length;
+    updateServiceDisplay();
+});
+
+</script>
+
     <!-- код  под меню -->
     <script>
         function toggleMenu(event, menuId) {
@@ -295,3 +472,4 @@
     </script>
 </body>
 </html>
+
