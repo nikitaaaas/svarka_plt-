@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>меблі</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background:  rgb(229, 229, 229); /* Колір фону */
+            font-family: Arial, sans-serif;
+        }
+        .professional__cards {
+            display: flex;
+            margin: 7.64rem 0;
+            transition: transform 0.3s ease;
+            justify-content: center;
+            height: 200px;
+        }
+
+        .slide {
+            background-image: url('/images/professionals/bg-cards.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 1.875rem 1.875rem 0rem 0rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.05;
+            line-height: 1;
+            width: 17.81944rem;
+            height: 12.84338rem;
+            transition: 1s ease;
+            position: absolute;
+        }
+
+        .images {
+            width: 9.68444rem;
+            height: 10.375rem;
+            padding: 0;
+            margin: 0;
+        }
+
+        .programmer-text {
+            font-family: var(--font-second);
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 500;
+            margin-top: -0.5rem;
+        }
+
+        .professioal-card__arrow {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .arrows {
+            background: transparent;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            fill: white;
+            padding: 0;
+            line-height: 0;
+        }
+
+        .button-arrwo-left {
+            background-image: url('/images/professionals/arow-left.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: ease 0.5s;
+            width: 4.30156rem;
+            height: 4.30156rem;
+        }
+
+        .button-arrwo-left:hover {
+            background-image: url('/images/professionals/arrow-fill-left.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 4.30156rem;
+            height: 4.30156rem;
+            transition: 0.5s ease;
+        }
+
+        .button-arrow-right {
+            background-image: url('/images/professionals/arrow-right.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: ease 0.5s;
+            width: 4.30156rem;
+            height: 4.30156rem;
+        }
+
+        .button-arrow-right:hover {
+            background-image: url('/images/professionals/arrow-fill-right.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 4.30156rem;
+            height: 4.30156rem;
+            transition: 0.5s ease;
+        }
+
+        .slide-active {
+            transform: scale(1.75);
+            opacity: 1;
+        }
+
+        .slide-next {
+            transform: translateX(320px);
+        }
+
+        .slide-prev {
+            transform: translateX(-320px);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+
+
+        .image-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Фото на весь екран */
+            display: block;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .left-overlay {
+            left: 0;
+            width: 400px;
+        }
+
+        .right-overlay {
+            right: 0;
+            width: 320px;
+        }
+
+        .services {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .service {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            transition: transform 0.3s ease-out, background 0.3s ease-out;
+            will-change: transform;
+        }
+
+        .service:hover {
+            transform: scale(1.05); /* Збільшення на 5% замість підняття */
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        h2, h3, p {
+            margin: 5px 0;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .left-overlay, .right-overlay {
+                width: 100%;
+                position: relative;
+                background: rgba(0, 0, 0, 0.6);
+                padding: 20px;
+            }
+
+            .image-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .services {
+                align-items: center;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="flex flex-col items-center">
+
+    <!-- Навігація -->
+    <nav class="flex items-center justify-between bg-white shadow-lg p-4 w-full max-w-screen-lg">
+        <div class="flex items-center">
+            <a href="index.html" class="bg-yellow-400 p-2 rounded-full text-black font-bold text-lg">LOGO</a>
+        </div>
+        <ul class="flex-1 flex justify-center space-x-6 text-gray-800 font-semibold">
+            <li><a href="menu.html" class="hover:text-yellow-500">Наші послуги</a></li>
+            <li><a href="#" class="hover:text-yellow-500">Про нас</a></li>
+        </ul>
+        <div>
+            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Оформити замовлення</a>
+        </div>
+    </nav>
+
+
+    <div class="image-container">
+        <img src="IMJ/mbfp2.png" alt="Фото меблів">
+
+        <!-- Лівий блок з текстом -->
+        <div class="overlay left-overlay">
+            <h2>Меблі, що створюють комфорт у вашому домі</h2>
+            <p>Ласкаво просимо до METALBUILD – місця, де стиль, якість та комфорт об’єднуються!</p>
+            <p>🛠 Індивідуальне виготовлення – створюємо меблі за вашим дизайном.</p>
+            <p>🚚 Доставка та монтаж – швидко та зручно.</p>
+            <p>💎 Гарантія якості – тільки найкращі матеріали та надійні конструкції.</p>
+            <p>📞 Зв’яжіться з нами вже сьогодні!</p>
+            <p>👉 Обирайте стильні меблі для вашого простору!</p>
+        </div>
+
+        <!-- Правий блок з послугами -->
+        <div class="overlay right-overlay">
+            <div class="services" onclick="openModal(); return false;" >
+                <div class="service">
+                    <h3>Вітальні</h3>
+                    <p>Затишні дивани, стильні столи та тумби.</p>
+                </div>
+                <div class="service">
+                    <h3>Кухні</h3>
+                    <p>Сучасні гарнітури, обідні столи та стільці.</p>
+                </div>
+                <div class="service">
+                    <h3>Спальні</h3>
+                    <p>Комфортні ліжка, місткі шафи та комоди.</p>
+                </div>
+                <div class="service">
+                    <h3>Офісні меблі</h3>
+                    <p>Ергономічні столи, зручні крісла та стелажі.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+
+    <div class="professional__cards">
+        <a href="tovar_stol.html">
+        <div href="tovar_stol.html" class="slide slide-prev">
+            
+            <img
+                src="IMJ/stol.jpg"
+                alt="programmer-seat"
+                class="images programmer__img"
+            />
+            <p class="programmer-text">Стіл</p>
+        </a>
+        </div>
+        <div class="slide slide-active">
+            <a href="tovar_meb3.html">
+            <img
+                src="IMJ/styl.jpg"
+                alt="message"
+                class="images marketing__img"
+            />
+            <p class="programmer-text">Стілець</p>
+        </a>
+        </div>
+        <div class="slide slide-next">
+            <a href="tovar_meb1.html">
+            <img
+                src="IMJ/krovat.jpg"
+                alt="box with arrows"
+                class="images designer__img"
+            />
+
+            <p class="programmer-text">Кровать</p>
+        </a>
+        </div>
+        <div class="slide slide-next">
+            <a href="tovar_meb2.html">
+            <img
+                src="IMJ/shkaf.jpg"
+                alt="box with arrows"
+                class="images designer__img"
+            />
+            <p class="programmer-text">Шафа</p>
+            </a>
+        </div>
+    </div>
+
+<div class="professioal-card__arrow">
+    <button
+        type="submit"
+        class="arrows button-arrwo-left"
+    >←</button>
+    <button
+        class="arrows button-arrow-right"
+        type="submit"
+    >→</button>
+</div>
+
+<!-- Карта з Африкою -->
+    <section class="w-full max-w-screen-lg mt-8">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">наше місце знаходження</h2>
+        <div class="w-full h-96">
+            <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31480278.369167928!2d17.087800000000006!3d1.650800000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x107be112b0e742e5%3A0x5e05ed5f9e28b83!2sAfrica!5e0!3m2!1sen!2sua!4v1647099286186!5m2!1sen!2sua"
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+    
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+    <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+    <div class="flex justify-center space-x-6 mt-4">
+        <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+            <img src="IMJ\instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+        </a>
+        <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+            <img src="IMJ\telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+        </a>
+        <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+            <img src="IMJ\viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+        </a>
+    </div>
+</footer>
+
+        <!-- Модальне вікно -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+            <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
+            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
+            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
+            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+        </div>
+    </div>
+
+         <!-- код слайдера -->
+     <script>
+        const slides = document.querySelectorAll('.slide'); //Получаем все слайды
+        const prevBtn = document.querySelector('.button-arrwo-left');
+        const nextBtn = document.querySelector('.button-arrow-right');
+        const slideCount = slides.length;
+        let slideIndex = 1;
+
+        nextBtn.addEventListener('click', function() { //Слушатель нажатия на кнопку "вперёд"
+          slideIndex = (slideIndex + 1) % slideCount; //Высчитывание индекса следующего слайда
+          updateSlider();
+        });
+
+        prevBtn.addEventListener('click', function() { //Слушатель нажатия на кнопку "назад"
+          slideIndex = (slideIndex - 1 + slideCount) % slideCount; //Высчитывание индекса предыдущего слайда
+          updateSlider();
+        });
+
+        function updateSlider() { //Функция для изменения классов всех слайдов при нажатии на кнопку
+          const nextSlide = (slideIndex + 1) % slideCount;
+          const prevSlide = (slideIndex - 1 + slideCount) % slideCount;
+
+          document.querySelector('.slide-active').classList.remove("slide-active");
+          slides[slideIndex].classList.add("slide-active");
+          document.querySelector('.slide-next').classList.remove("slide-next");
+          slides[nextSlide].classList.add("slide-next");
+          document.querySelector('.slide-prev').classList.remove("slide-prev");
+          slides[prevSlide].classList.add("slide-prev");
+        }
+    </script>
+
+    <script>
+
+        function openModal() {
+        document.getElementById("orderModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+        document.getElementById("orderModal").classList.add("hidden");
+        }
+
+        function submitOrder() {
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const comment = document.getElementById("comment").value || "немає";
+
+        if (!name || !phone) {
+            alert("Будь ласка, заповніть всі обов’язкові поля!");
+            return;
+        }
+
+        const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
+        const chat_id = "1570021129"; // Введи свій chat_id
+        const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
+        
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: chat_id,
+                text: text,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert("✅ Замовлення успішно надіслано в Telegram!");
+                closeModal();
+            } else {
+                alert("❌ Помилка відправки!");
+            }
+        })
+        .catch(error => console.error("Помилка:", error));
+        }
+</script>
+
+</body>
+</html>
