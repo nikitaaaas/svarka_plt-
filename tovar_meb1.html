@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Меню сайту</title>
     <script src="https://cdn.tailwindcss.com"></script>
-        <style>
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             padding: 20px;
         }
 
@@ -96,8 +96,33 @@
                 width: 100%;
             }
         }
-    </style>
 
+        .reviews-section {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item h4 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-item p {
+            color: #555;
+        }
+    </style>
 </head>
 <body class="flex flex-col items-center">
 
@@ -119,8 +144,27 @@
         </div>
     </div>
 
+    <!-- Розділ для відгуків -->
+    <div class="reviews-section">
+        <h2 class="text-2xl font-bold mb-4">Відгуки</h2>
+        
+        <!-- Форма для додавання нового відгуку -->
+        <div class="add-review mb-6">
+            <h3 class="text-lg font-semibold mb-2">Залишити відгук</h3>
+            <form id="reviewForm">
+                <input type="text" id="reviewName" placeholder="Ваше ім'я" class="w-full border p-2 mb-2 rounded" required>
+                <textarea id="reviewText" placeholder="Ваш відгук" class="w-full border p-2 mb-2 rounded" rows="4" required></textarea>
+                <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Надіслати відгук</button>
+            </form>
+        </div>
 
-        <!-- Модальне вікно -->
+        <!-- Список існуючих відгуків -->
+        <div class="reviews-list" id="reviewsList">
+            <!-- Відгуки будуть додаватися сюди -->
+        </div>
+    </div>
+
+    <!-- Модальне вікно -->
     <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
             <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
@@ -133,57 +177,104 @@
         </div>
     </div>
 
-    
-
-
-
-    <!-- код для тгбот адміна -->
+    <!-- JavaScript для обробки відгуків та модального вікна -->
     <script>
-
+        // Функції для модального вікна
         function openModal() {
-        document.getElementById("orderModal").classList.remove("hidden");
+            document.getElementById("orderModal").classList.remove("hidden");
         }
 
         function closeModal() {
-        document.getElementById("orderModal").classList.add("hidden");
+            document.getElementById("orderModal").classList.add("hidden");
         }
 
         function submitOrder() {
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const comment = document.getElementById("comment").value || "немає";
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const comment = document.getElementById("comment").value || "немає";
 
-        if (!name || !phone) {
-            alert("Будь ласка, заповніть всі обов’язкові поля!");
-            return;
-        }
-
-        const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
-        const chat_id = "1570021129"; // Введи свій chat_id
-        const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
-        
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: chat_id,
-                text: text,
-                parse_mode: "Markdown"
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert("✅ Замовлення успішно надіслано в Telegram!");
-                closeModal();
-            } else {
-                alert("❌ Помилка відправки!");
+            if (!name || !phone) {
+                alert("Будь ласка, заповніть всі обов’язкові поля!");
+                return;
             }
-        })
-        .catch(error => console.error("Помилка:", error));
+
+            const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
+            const chat_id = "1570021129"; // Введи свій chat_id
+            const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: "Markdown"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("✅ Замовлення успішно надіслано в Telegram!");
+                    closeModal();
+                } else {
+                    alert("❌ Помилка відправки!");
+                }
+            })
+            .catch(error => console.error("Помилка:", error));
         }
-</script>
 
+        // Функція для збереження та відображення відгуків
+        function saveReview(name, text) {
+            const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+            reviews.push({ name, text });
+            localStorage.setItem("reviews", JSON.stringify(reviews));
+        }
 
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+            const reviewsList = document.getElementById("reviewsList");
+            reviewsList.innerHTML = ""; // Очистити список перед завантаженням
+
+            reviews.forEach(review => {
+                const reviewItem = document.createElement("div");
+                reviewItem.classList.add("review-item");
+
+                const reviewName = document.createElement("h4");
+                reviewName.textContent = review.name;
+
+                const reviewText = document.createElement("p");
+                reviewText.textContent = review.text;
+
+                reviewItem.appendChild(reviewName);
+                reviewItem.appendChild(reviewText);
+
+                reviewsList.appendChild(reviewItem);
+            });
+        }
+
+        // Обробка форми відгуку
+        document.getElementById("reviewForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("reviewName").value;
+            const text = document.getElementById("reviewText").value;
+
+            if (!name || !text) {
+                alert("Будь ласка, заповніть всі поля!");
+                return;
+            }
+
+            saveReview(name, text); // Зберегти відгук
+            loadReviews(); // Оновити список відгуків
+
+            // Очистити форму після відправки
+            document.getElementById("reviewForm").reset();
+
+            alert("Дякуємо за ваш відгук!");
+        });
+
+        // Завантажити відгуки при завантаженні сторінки
+        window.onload = loadReviews;
+    </script>
 </body>
 </html>
