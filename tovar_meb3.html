@@ -135,17 +135,7 @@
 
 
 
-    <div id="hyvor-talk-view"></div>
-    <script type="text/javascript">
-        var HYVOR_TALK_WEBSITE = 12908;  // ← ЗАМІНІТЬ НА СВІЙ ID
-        (function() {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://talk.hyvor.com/web-api/embed.js';
-            s.async = true;
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
+
 
 
     
@@ -199,6 +189,8 @@
         }
 </script>
 
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div id="commento"></div>
 
 </body>
 </html>
