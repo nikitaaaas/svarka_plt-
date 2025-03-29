@@ -13,6 +13,11 @@
             font-family: Arial, sans-serif;
         }
 
+        html, body { /* додати до остальних товарів */
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
         body {
             background-color: #f5f5f5;
             display: flex;
@@ -28,7 +33,7 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            overflow: visible !important; /* тут для всіх товарів змінити overflow: */
         }
 
         .product-image {
@@ -122,6 +127,30 @@
         .review-item p {
             color: #555;
         }
+
+                #commento {
+            min-height: 400px; /* Мінімальна висота */
+            max-height: 600px; /* Обмежуємо максимальну висоту */    
+
+        }
+
+        #commento {
+            margin-bottom: 120px; /* Додає відступ перед товаром */
+        }
+
+        /* Стилі для відгуків */
+        .reviews-section {
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+
     </style>
 </head>
 <body class="flex flex-col items-center">
@@ -144,25 +173,7 @@
         </div>
     </div>
 
-    <!-- Розділ для відгуків -->
-    <div class="reviews-section">
-        <h2 class="text-2xl font-bold mb-4">Відгуки</h2>
-        
-        <!-- Форма для додавання нового відгуку -->
-        <div class="add-review mb-6">
-            <h3 class="text-lg font-semibold mb-2">Залишити відгук</h3>
-            <form id="reviewForm">
-                <input type="text" id="reviewName" placeholder="Ваше ім'я" class="w-full border p-2 mb-2 rounded" required>
-                <textarea id="reviewText" placeholder="Ваш відгук" class="w-full border p-2 mb-2 rounded" rows="4" required></textarea>
-                <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Надіслати відгук</button>
-            </form>
-        </div>
-
-        <!-- Список існуючих відгуків -->
-        <div class="reviews-list" id="reviewsList">
-            <!-- Відгуки будуть додаватися сюди -->
-        </div>
-    </div>
+    
 
     <!-- Модальне вікно -->
     <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
@@ -223,58 +234,39 @@
             .catch(error => console.error("Помилка:", error));
         }
 
-        // Функція для збереження та відображення відгуків
-        function saveReview(name, text) {
-            const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-            reviews.push({ name, text });
-            localStorage.setItem("reviews", JSON.stringify(reviews));
-        }
-
-        function loadReviews() {
-            const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-            const reviewsList = document.getElementById("reviewsList");
-            reviewsList.innerHTML = ""; // Очистити список перед завантаженням
-
-            reviews.forEach(review => {
-                const reviewItem = document.createElement("div");
-                reviewItem.classList.add("review-item");
-
-                const reviewName = document.createElement("h4");
-                reviewName.textContent = review.name;
-
-                const reviewText = document.createElement("p");
-                reviewText.textContent = review.text;
-
-                reviewItem.appendChild(reviewName);
-                reviewItem.appendChild(reviewText);
-
-                reviewsList.appendChild(reviewItem);
-            });
-        }
-
-        // Обробка форми відгуку
-        document.getElementById("reviewForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const name = document.getElementById("reviewName").value;
-            const text = document.getElementById("reviewText").value;
-
-            if (!name || !text) {
-                alert("Будь ласка, заповніть всі поля!");
-                return;
-            }
-
-            saveReview(name, text); // Зберегти відгук
-            loadReviews(); // Оновити список відгуків
-
-            // Очистити форму після відправки
-            document.getElementById("reviewForm").reset();
-
-            alert("Дякуємо за ваш відгук!");
-        });
-
-        // Завантажити відгуки при завантаженні сторінки
-        window.onload = loadReviews;
+        
     </script>
+
+    <br><br><br><br><br>
+
+            <!-- Секція відгуків -->
+    <div class="reviews-section">
+        <h2 class="reviews-title">Відгуки про товар</h2>
+    </div>
+    
+
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div id="commento"></div>
+    <div id="commento" data-page-url="https://nikitaaaas.github.io/svarka_plt-/"></div>
+    <div style="clear: both;"></div>
+
+
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+        <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            </a>
+            <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            </a>
+        </div>
+    </footer>
+
+
 </body>
 </html>
