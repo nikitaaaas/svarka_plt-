@@ -10,128 +10,21 @@
             background:  rgb(229, 229, 229); /* Колір фону */
             font-family: Arial, sans-serif;
         }
-        .professional__cards {
-            display: flex;
-            margin: 7.64rem 0;
-            transition: transform 0.3s ease;
-            justify-content: center;
-            height: 200px;
-        }
-
-        .slide {
-            background-image: url('/images/professionals/bg-cards.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 1.875rem 1.875rem 0rem 0rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0.05;
-            line-height: 1;
-            width: 17.81944rem;
-            height: 12.84338rem;
-            transition: 1s ease;
-            position: absolute;
-        }
-
-        .images {
-            width: 9.68444rem;
-            height: 10.375rem;
-            padding: 0;
-            margin: 0;
-        }
-
-        .programmer-text {
-            font-family: var(--font-second);
-            font-size: 1.25rem;
-            font-style: normal;
-            font-weight: 500;
-            margin-top: -0.5rem;
-        }
-
-        .professioal-card__arrow {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-        }
-
-        .arrows {
-            background: transparent;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            fill: white;
-            padding: 0;
-            line-height: 0;
-        }
-
-        .button-arrwo-left {
-            background-image: url('/images/professionals/arow-left.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            transition: ease 0.5s;
-            width: 4.30156rem;
-            height: 4.30156rem;
-        }
-
-        .button-arrwo-left:hover {
-            background-image: url('/images/professionals/arrow-fill-left.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            width: 4.30156rem;
-            height: 4.30156rem;
-            transition: 0.5s ease;
-        }
-
-        .button-arrow-right {
-            background-image: url('/images/professionals/arrow-right.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            transition: ease 0.5s;
-            width: 4.30156rem;
-            height: 4.30156rem;
-        }
-
-        .button-arrow-right:hover {
-            background-image: url('/images/professionals/arrow-fill-right.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            width: 4.30156rem;
-            height: 4.30156rem;
-            transition: 0.5s ease;
-        }
-
-        .slide-active {
-            transform: scale(1.75);
-            opacity: 1;
-        }
-
-        .slide-next {
-            transform: translateX(320px);
-        }
-
-        .slide-prev {
-            transform: translateX(-320px);
-        }
-
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
 
-
-        .image-container {
+        .image-dontainer {
             position: relative;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
         }
 
-        .image-container img {
+        .image-dontainer img {
             width: 100%;
             height: 100%;
             object-fit: cover; /* Фото на весь екран */
@@ -177,12 +70,142 @@
         }
 
         .service:hover {
-            transform: scale(1.05); /* Збільшення на 5% замість підняття */
+            transform: scale(1.05);
             background-color: rgba(255, 255, 255, 0.3);
         }
 
         h2, h3, p {
             margin: 5px 0;
+        }
+
+        /* Новий слайдер */
+        .carousel-wrapper {
+            --width: 300px;
+            --gap: 40px; /* Збільшений відступ між фото */
+            --num-items: 10;
+            --ani-speed: 10s;
+            width: 800px;
+            overflow: hidden;
+            position: relative;
+            margin: 2rem auto;
+        }
+
+        .carousel-wrapper::before,
+        .carousel-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 5%;
+            height: 100%;
+            z-index: 1;
+            top: 0;
+        }
+
+        .carousel-wrapper::before {
+            left: 0;
+            background-image: linear-gradient(to right, rgba(229, 229, 229, 1) 0%, transparent 100%);
+        }
+
+        .carousel-wrapper::after {
+            right: 0;
+            background-image: linear-gradient(to left, rgba(229, 229, 229, 1) 0%, transparent 100%);
+        }
+
+        .carousel {
+            display: flex;
+            align-items: center;
+            gap: var(--gap);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .item {
+            flex: 0 0 var(--width);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .item > img {
+            width: 100%;
+            height: 350px; /* Фіксована висота фото */
+            object-fit: cover; /* Забезпечує однаковий розмір фото */
+            border-radius: 10px; /* Закруглені кути */
+        }
+
+        .item.active {
+            transform: scale(1.2); /* Збільшення центрального фото */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .item-link {
+            display: block; /* Робимо посилання блоковими */
+            text-decoration: none; /* Видаляємо підкреслення */
+            color: inherit; /* Успадковуємо колір тексту */
+            flex: 0 0 var(--width); /* Забезпечуємо однакову ширину */
+        }
+
+        .item-link:hover {
+            text-decoration: none; /* Видаляємо підкреслення при наведенні */
+        }
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px; /* Відступ між фото і текстом */
+            padding-bottom: 20px; /* Додатковий простір для тексту */
+            position: relative; /* Для коректного позиціонування тексту */
+        }
+
+        .image-container {
+            width: 100%; /* Ширина контейнера дорівнює ширині фото */
+            height: 350px; /* Висота контейнера дорівнює висоті фото */
+            overflow: hidden; /* Забезпечує, що збільшене фото не виходить за межі */
+            border-radius: 10px; /* Закруглені кути */
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%; /* Фото заповнює контейнер */
+            object-fit: cover; /* Забезпечує однаковий розмір фото */
+            transition: transform 0.3s ease-in-out; /* Плавний перехід для масштабування */
+        }
+
+        .item.active img {
+            transform: scale(1.2); /* Збільшення центрального фото */
+        }
+
+        .item-text {
+            font-size: 1.2rem; /* Розмір тексту */
+            font-weight: 500; /* Товщина тексту */
+            color: #333; /* Колір тексту */
+            margin: 0; /* Видаляємо зовнішні відступи */
+            position: absolute; /* Абсолютне позиціонування тексту */
+            bottom: 30px; /* Розташування тексту під фото */
+            left: 50%; /* Вирівнювання тексту по центру */
+            transform: translateX(-50%); /* Точне центрування тексту */
+            z-index: 2; /* Забезпечує, що текст залишається поверх фото */
+            background-color: rgba(255, 255, 255, 0.8); /* Фон тексту для кращої видимості */
+            padding: 5px 10px; /* Відступи всередині текстового блоку */
+            border-radius: 5px; /* Закруглені кути текстового блоку */
         }
 
         /* Адаптивність */
@@ -206,6 +229,14 @@
             }
         }
 
+        .carousel {
+            will-change: transform; /* Підказка браузеру для оптимізації */
+        }
+
+        .item {
+            backface-visibility: hidden; /* Виправляє артефакти анімації */
+            transform: translateZ(0); /* Апаратне прискорення */
+        }
     </style>
 </head>
 
@@ -226,17 +257,17 @@
     </nav>
 
 
-    <div class="image-container">
+    <div class="image-dontainer">
         <img src="IMJ/mbfp2.png" alt="Фото меблів">
 
         <!-- Лівий блок з текстом -->
         <div class="overlay left-overlay">
             <h2>Меблі, що створюють комфорт у вашому домі</h2>
-            <p>Ласкаво просимо до METALBUILD – місця, де стиль, якість та комфорт об’єднуються!</p>
+            <p>Ласкаво просимо до METALBUILD – місця, де стиль, якість та комфорт об'єднуються!</p>
             <p>🛠 Індивідуальне виготовлення – створюємо меблі за вашим дизайном.</p>
             <p>🚚 Доставка та монтаж – швидко та зручно.</p>
             <p>💎 Гарантія якості – тільки найкращі матеріали та надійні конструкції.</p>
-            <p>📞 Зв’яжіться з нами вже сьогодні!</p>
+            <p>📞 Зв'яжіться з нами вже сьогодні!</p>
             <p>👉 Обирайте стильні меблі для вашого простору!</p>
         </div>
 
@@ -261,69 +292,83 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-
-    
-
-    <div class="professional__cards">
-        <a href="tovar_stol.html">
-        <div href="tovar_stol.html" class="slide slide-prev">
-            
-            <img
-                src="IMJ/stol.jpg"
-                alt="programmer-seat"
-                class="images programmer__img"
-            />
-            <p class="programmer-text">Стіл</p>
-        </a>
-        </div>
-        <div class="slide slide-active">
-            <a href="tovar_meb3.html">
-            <img
-                src="IMJ/styl.jpg"
-                alt="message"
-                class="images marketing__img"
-            />
-            <p class="programmer-text">Стілець</p>
-        </a>
-        </div>
-        <div class="slide slide-next">
-            <a href="tovar_meb1.html">
-            <img
-                src="IMJ/krovat.jpg"
-                alt="box with arrows"
-                class="images designer__img"
-            />
-
-            <p class="programmer-text">Кровать</p>
-        </a>
-        </div>
-        <div class="slide slide-next">
-            <a href="tovar_meb2.html">
-            <img
-                src="IMJ/shkaf.jpg"
-                alt="box with arrows"
-                class="images designer__img"
-            />
-            <p class="programmer-text">Шафа</p>
+    <!-- Новий слайдер -->
+    <div class="carousel-wrapper">
+        <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel">
+            <!-- Дубльовані елементи для безкінечного циклу -->
+            <a href="tovar_stol.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/stol.jpg" alt="Стіл">
+                    </div>
+                    <p class="item-text">Стіл</p>
+                </div>
+            </a>
+            <a href="tovar_meb3.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/styl.jpg" alt="Стілець">
+                    </div>
+                    <p class="item-text">Стілець</p>
+                </div>
+            </a>
+            <a href="tovar_meb1.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/krovat.jpg" alt="Кровать">
+                    </div>
+                    <p class="item-text">Кровать</p>
+                </div>
+            </a>
+            <a href="tovar_meb2.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/shkaf.jpg" alt="Шафа">
+                    </div>
+                    <p class="item-text">Шафа</p>
+                </div>
+            </a>
+            <!-- Дубльовані елементи для безкінечного циклу -->
+            <a href="tovar_stol.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/stol.jpg" alt="Стіл">
+                    </div>
+                    <p class="item-text">Стіл</p>
+                </div>
+            </a>
+            <a href="tovar_meb3.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/styl.jpg" alt="Стілець">
+                    </div>
+                    <p class="item-text">Стілець</p>
+                </div>
+            </a>
+            <a href="tovar_meb1.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/krovat.jpg" alt="Кровать">
+                    </div>
+                    <p class="item-text">Кровать</p>
+                </div>
+            </a>
+            <a href="tovar_meb2.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/shkaf.jpg" alt="Шафа">
+                    </div>
+                    <p class="item-text">Шафа</p>
+                </div>
             </a>
         </div>
     </div>
 
-<div class="professioal-card__arrow">
-    <button
-        type="submit"
-        class="arrows button-arrwo-left"
-    >←</button>
-    <button
-        class="arrows button-arrow-right"
-        type="submit"
-    >→</button>
-</div>
-
-<!-- Карта з Африкою -->
+    <!-- Карта з Африкою -->
     <section class="w-full max-w-screen-lg mt-8">
         <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">наше місце знаходження</h2>
         <div class="w-full h-96">
@@ -359,46 +404,70 @@
             <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
             <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
             <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
-            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <textarea id="comment" placeholder="Додаткові побажання (необов'язково)" class="w-full border p-2 mb-4 h-24"></textarea>
             <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
             <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
             <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
         </div>
     </div>
 
-         <!-- код слайдера -->
-     <script>
-        const slides = document.querySelectorAll('.slide'); //Получаем все слайды
-        const prevBtn = document.querySelector('.button-arrwo-left');
-        const nextBtn = document.querySelector('.button-arrow-right');
-        const slideCount = slides.length;
-        let slideIndex = 1;
+    <!-- Скрипт для нового слайдера -->
+    <script>
+    let currentIndex = 1;
+    const carousel = document.querySelector('.carousel');
+    const items = document.querySelectorAll('.item');
+    const itemWidth = items[0].offsetWidth + 40; // Ширина елемента + відступ
+    const totalItems = items.length;
+    let isAnimating = false; // Додано прапорець для відстеження анімації
 
-        nextBtn.addEventListener('click', function() { //Слушатель нажатия на кнопку "вперёд"
-          slideIndex = (slideIndex + 1) % slideCount; //Высчитывание индекса следующего слайда
-          updateSlider();
+    // Встановлюємо початкову позицію слайдера
+    carousel.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+
+    // Функція для оновлення активного елемента
+    function updateActiveItem() {
+        const centerIndex = Math.floor(currentIndex + (800 / itemWidth) / 2);
+        items.forEach((item, index) => {
+            item.classList.toggle('active', index === centerIndex);
         });
+    }
 
-        prevBtn.addEventListener('click', function() { //Слушатель нажатия на кнопку "назад"
-          slideIndex = (slideIndex - 1 + slideCount) % slideCount; //Высчитывание индекса предыдущего слайда
-          updateSlider();
-        });
+    // Оновлюємо активний елемент при завантаженні сторінки
+    updateActiveItem();
 
-        function updateSlider() { //Функция для изменения классов всех слайдов при нажатии на кнопку
-          const nextSlide = (slideIndex + 1) % slideCount;
-          const prevSlide = (slideIndex - 1 + slideCount) % slideCount;
+    function moveSlide(direction) {
+        if (isAnimating) return; // Якщо анімація вже виконується, виходимо
+        isAnimating = true; // Встановлюємо прапорець анімації
 
-          document.querySelector('.slide-active').classList.remove("slide-active");
-          slides[slideIndex].classList.add("slide-active");
-          document.querySelector('.slide-next').classList.remove("slide-next");
-          slides[nextSlide].classList.add("slide-next");
-          document.querySelector('.slide-prev').classList.remove("slide-prev");
-          slides[prevSlide].classList.add("slide-prev");
+        // Вимикаємо анімацію для миттєвого переходу, якщо потрібно
+        if (currentIndex <= 0 || currentIndex >= totalItems - 1) {
+            carousel.style.transition = 'none';
+        } else {
+            carousel.style.transition = 'transform 0.5s ease-in-out';
         }
-    </script>
+
+        currentIndex += direction;
+
+        // Перевірка, чи досягнуто кінця або початку
+        if (currentIndex <= 0) {
+            currentIndex = totalItems - 2; // Переходимо до передостаннього елемента
+        } else if (currentIndex >= totalItems - 1) {
+            currentIndex = 1; // Переходимо до другого елемента
+        }
+
+        // Плавний перехід
+        carousel.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+
+        // Оновлюємо активний елемент
+        updateActiveItem();
+
+        // Скидаємо прапорець після завершення анімації
+        carousel.addEventListener('transitionend', () => {
+            isAnimating = false;
+        }, { once: true });
+    }
+</script>
 
     <script>
-
         function openModal() {
         document.getElementById("orderModal").classList.remove("hidden");
         }
@@ -413,7 +482,7 @@
         const comment = document.getElementById("comment").value || "немає";
 
         if (!name || !phone) {
-            alert("Будь ласка, заповніть всі обов’язкові поля!");
+            alert("Будь ласка, заповніть всі обов'язкові поля!");
             return;
         }
 
@@ -441,7 +510,7 @@
         })
         .catch(error => console.error("Помилка:", error));
         }
-</script>
+    </script>
 
 </body>
 </html>
