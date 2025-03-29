@@ -112,8 +112,20 @@
         }
 
         #commento {
-        margin-bottom: 120px; /* Додає відступ перед товаром */
-    }
+            margin-bottom: 120px; /* Додає відступ перед товаром */
+        }
+
+        /* Стилі для відгуків */
+        .reviews-section {
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
 
 
@@ -211,6 +223,11 @@
         .catch(error => console.error("Помилка:", error));
         }
     </script>
+
+            <!-- Секція відгуків -->
+    <div class="reviews-section">
+        <h2 class="reviews-title">Відгуки про товар</h2>
+    </div>
 
     <script defer src="https://cdn.commento.io/js/commento.js"></script>
     <div id="commento"></div>
