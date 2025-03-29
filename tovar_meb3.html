@@ -13,6 +13,11 @@
             font-family: Arial, sans-serif;
         }
 
+        html, body { /* додати до остальних товарів */
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
         body {
             background-color: #f5f5f5;
             display: flex;
@@ -98,10 +103,7 @@
             }
         }
 
-        #tovar {
-            position: relative;
-            z-index: 10;
-        }
+
 
         #commento {
             min-height: 400px; /* Мінімальна висота */
@@ -110,7 +112,7 @@
         }
 
         #commento {
-        margin-bottom: 270px; /* Додає відступ перед товаром */
+        margin-bottom: 70px; /* Додає відступ перед товаром */
     }
 
 
