@@ -98,6 +98,16 @@
         }
 
 
+        #commento {
+            min-height: 400px;
+            max-height: none; /* Вимикаємо обмеження */
+            overflow-y: visible; /* Вимикаємо прокрутку */
+            position: relative; /* Запобігає перекриванню */
+            z-index: 1;
+        }
+
+
+
     </style>
 
 </head>
@@ -189,7 +199,7 @@
         })
         .catch(error => console.error("Помилка:", error));
         }
-</script>
+    </script>
 
     <script defer src="https://cdn.commento.io/js/commento.js"></script>
     <div id="commento"></div>
