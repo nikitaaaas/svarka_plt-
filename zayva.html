@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вакансія: Сварщик</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html, body {
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .job-container {
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .job-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .job-header h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .job-header .salary {
+            font-size: 22px;
+            color: #e67e22;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .job-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .requirements, .conditions {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .features li:before {
+            content: "✔️";
+            position: absolute;
+            left: 0;
+        }
+
+        .btn-apply {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .btn-apply:hover {
+            background: #0056b3;
+        }
+
+        /* Модальне вікно */
+        #applicationModal {
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #218838;
+        }
+
+        .btn-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .btn-close:hover {
+            color: #333;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="job-container">
+        <div class="job-header">
+            <h1>Вакансія: Сварщик</h1>
+            <p class="salary">Від 25 000 грн</p>
+            <p class="job-description">Шукаємо досвідченого сварщика для роботи на виробництві металевих конструкцій. Постійна робота, стабільний заробіток, офіційне оформлення.</p>
+            <a href="#" onclick="openModal(); return false;" class="btn-apply">Подати заявку</a>
+        </div>
+
+        <div class="requirements">
+            <h2 class="section-title">Вимоги до кандидата</h2>
+            <ul class="features">
+                <li>Досвід роботи сварщиком від 2 років</li>
+                <li>Знання основних видів зварювання (MMA, MIG/MAG, TIG)</li>
+                <li>Вміння читати креслення</li>
+                <li>Відповідальність, акуратність</li>
+                <li>Наявність посвідчення сварщика</li>
+            </ul>
+        </div>
+
+        <div class="conditions">
+            <h2 class="section-title">Умови роботи</h2>
+            <ul class="features">
+                <li>Графік: 5/2 з 8:00 до 17:00</li>
+                <li>Офіційне оформлення</li>
+                <li>Щорічна відпустка</li>
+                <li>Можливість навчання та підвищення кваліфікації</li>
+                <li>Своєчасна виплата заробітної плати</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Модальне вікно для заявки -->
+    <div id="applicationModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="modal-content">
+            <span class="btn-close" onclick="closeModal()">&times;</span>
+            <h2 style="font-size: 24px; margin-bottom: 20px; text-align: center;">Заявка на вакансію сварщика</h2>
+            
+            <div class="form-group">
+                <label for="applicantName">ПІБ*</label>
+                <input type="text" id="applicantName" class="form-control" placeholder="Ваше повне ім'я" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="applicantPhone">Телефон*</label>
+                <input type="tel" id="applicantPhone" class="form-control" placeholder="Ваш контактний телефон" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="applicantExp">Досвід роботи (роки)*</label>
+                <input type="text" id="applicantExp" class="form-control" placeholder="Скільки років досвіду у зварюванні" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="applicantSkills">Види зварювання, якими володієте</label>
+                <input type="text" id="applicantSkills" class="form-control" placeholder="Наприклад: MMA, MIG/MAG, TIG">
+            </div>
+            
+            <div class="form-group">
+                <label for="applicantInfo">Додаткова інформація про себе</label>
+                <textarea id="applicantInfo" class="form-control" placeholder="Розкажіть коротко про свій досвід, навички тощо"></textarea>
+            </div>
+            
+            <button onclick="submitApplication()" class="btn-submit">Надіслати заявку</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Телефон для контактів: <a href="tel:+380123456789" style="color: #ffcc00;">+380 12 345 67 89</a></p>
+        <p>Email: <a href="mailto:hr@svarka.com" style="color: #ffcc00;">hr@svarka.com</a></p>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById("applicationModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("applicationModal").style.display = "none";
+        }
+
+        function submitApplication() {
+            const name = document.getElementById("applicantName").value;
+            const phone = document.getElementById("applicantPhone").value;
+            const experience = document.getElementById("applicantExp").value;
+            const skills = document.getElementById("applicantSkills").value || "не вказано";
+            const info = document.getElementById("applicantInfo").value || "немає";
+
+            if (!name || !phone || !experience) {
+                alert("Будь ласка, заповніть всі обов'язкові поля!");
+                return;
+            }
+
+            const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Ваш токен Telegram бота
+            const chat_id = "1570021129"; // Ваш chat_id
+            const text = `🔔 *НОВА ЗАЯВКА НА ВАКАНСІЮ СВАРЩИКА!*\n👤 *ПІБ:* ${name}\n📞 *Телефон:* ${phone}\n🏭 *Досвід:* ${experience} років\n🛠️ *Навички:* ${skills}\n📝 *Додатково:* ${info}`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: "Markdown"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("✅ Ваша заявка успішно надіслана!");
+                    closeModal();
+                    // Очищаємо форму після успішного відправлення
+                    document.getElementById("applicantName").value = "";
+                    document.getElementById("applicantPhone").value = "";
+                    document.getElementById("applicantExp").value = "";
+                    document.getElementById("applicantSkills").value = "";
+                    document.getElementById("applicantInfo").value = "";
+                } else {
+                    alert("❌ Помилка відправки заявки!");
+                }
+            })
+            .catch(error => {
+                console.error("Помилка:", error);
+                alert("❌ Сталася помилка при відправці заявки. Спробуйте ще раз.");
+            });
+        }
+    </script>
+</body>
+</html>

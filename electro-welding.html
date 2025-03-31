@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аргонне зварювання</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html, body {
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .service-container {
+            display: flex;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: visible !important;
+            margin-bottom: 30px;
+        }
+
+        .service-image {
+            width: 50%;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-details {
+            width: 50%;
+            padding: 30px;
+        }
+
+        .service-details h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #e67e22;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .service-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .service-image, .service-details {
+                width: 100%;
+            }
+        }
+
+        #commento {
+            min-height: 400px;
+            max-height: 600px;
+            margin-bottom: 120px;
+        }
+
+        /* Стилі для відгуків */
+        .reviews-section {
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+
+    <div class="service-container">
+        <div class="service-image">
+            <img src="IMJ/electro-welding.png" alt="Аргонне зварювання">
+        </div>
+        <div class="service-details">
+            <h1>Електрозварювання</h1>
+            <p class="price">від ₴300/год</p>
+            <p class="description">Професійне Електрозварювання металів, включаючи алюміній, нержавіючу сталь та інші кольорові метали. Гарантуємо якість та міцність з'єднань.</p>
+            <ul class="features">
+                <li>✔️ Види робіт: Зварювання труб, конструкцій, ремонт</li>
+                <li>✔️ Матеріали: Алюміній, нержавіюча сталь, титан</li>
+                <li>✔️ Товщина металу: від 0.5 мм до 10 мм</li>
+                <li>✔️ Гарантія на роботи: 6 місяців</li>
+                <li>✔️ Виїзд майстра: можливий</li>
+            </ul>
+            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Замовити послугу</a>
+        </div>
+    </div>
+
+    <!-- Модальне вікно -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+            <h2 class="text-lg font-bold mb-4">Замовлення послуги</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
+            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
+            <textarea id="comment" placeholder="Опишіть роботу (необов'язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
+            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+        </div>
+    </div>
+
+    <!-- Секція відгуків -->
+    <div class="reviews-section">
+        <h2 class="reviews-title">Відгуки про послугу</h2>
+    </div>
+    
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div id="commento"></div>
+    <div id="commento" data-page-url="https://nikitaaaas.github.io/svarka_plt-/"></div>
+    <div style="clear: both;"></div>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+        <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            </a>
+            <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById("orderModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("orderModal").classList.add("hidden");
+        }
+
+        function submitOrder() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const comment = document.getElementById("comment").value || "немає";
+
+            if (!name || !phone) {
+                alert("Будь ласка, заповніть всі обов'язкові поля!");
+                return;
+            }
+
+            const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M";
+            const chat_id = "1570021129";
+            const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ ПОСЛУГИ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Опис роботи:* ${comment}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: "Markdown"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("✅ Замовлення успішно надіслано в Telegram!");
+                    closeModal();
+                } else {
+                    alert("❌ Помилка відправки!");
+                }
+            })
+            .catch(error => console.error("Помилка:", error));
+        }
+    </script>
+</body>
+</html>

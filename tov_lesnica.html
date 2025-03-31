@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Залізні сходи</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+         html, body { /* додати до остальних товарів */
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .product-container {
+            display: flex;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: visible !important;
+        }
+
+        .product-image {
+            width: 50%;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            width: 50%;
+            padding: 30px;
+        }
+
+        .product-details h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #e67e22;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-image, .product-details {
+                width: 100%;
+            }
+        }
+
+        #commento {
+            min-height: 400px; /* Мінімальна висота */
+            max-height: 600px; /* Обмежуємо максимальну висоту */    
+
+        }
+
+        #commento {
+            margin-bottom: 120px; /* Додає відступ перед товаром */
+        }
+
+        /* Стилі для відгуків */
+        .reviews-section {
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+
+    <div class="product-container">
+        <div class="product-image">
+            <img src="IMJ/lesnica.jpg" alt="Залізні сходи">
+        </div>
+        <div class="product-details">
+            <h1>Залізні сходи</h1>
+            <p class="price">₴8,000</p>
+            <p class="description">Міцні та надійні залізні сходи для використання в промислових та побутових умовах. Ідеально підходять для будівельних робіт та обслуговування висотних об'єктів.</p>
+            <ul class="features">
+                <li>✔️ Матеріал: Високоякісна сталь</li>
+                <li>✔️ Висота: 3 метри</li>
+                <li>✔️ Вага: 15 кг</li>
+                <li>✔️ Гарантія: 1 рік</li>
+            </ul>
+            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Оформити замовлення</a>
+        </div>
+    </div>
+
+    <!-- Модальне вікно -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+            <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
+            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
+            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
+            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("orderModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("orderModal").classList.add("hidden");
+        }
+
+        function submitOrder() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const comment = document.getElementById("comment").value || "немає";
+
+            if (!name || !phone) {
+                alert("Будь ласка, заповніть всі обов’язкові поля!");
+                return;
+            }
+
+            const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
+            const chat_id = "1570021129"; // Введи свій chat_id
+            const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: "Markdown"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("✅ Замовлення успішно надіслано в Telegram!");
+                    closeModal();
+                } else {
+                    alert("❌ Помилка відправки!");
+                }
+            })
+            .catch(error => console.error("Помилка:", error));
+        }
+    </script>
+
+    <br><br><br><br><br>
+
+            <!-- Секція відгуків -->
+    <div class="reviews-section">
+        <h2 class="reviews-title">Відгуки про товар</h2>
+    </div>
+    
+
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div id="commento"></div>
+    <div id="commento" data-page-url="https://nikitaaaas.github.io/svarka_plt-/"></div>
+    <div style="clear: both;"></div>
+
+
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+        <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            </a>
+            <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
