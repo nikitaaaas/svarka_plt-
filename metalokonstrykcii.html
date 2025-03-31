@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Металоконструкції</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background:  rgb(229, 229, 229); /* Колір фону */
+            font-family: Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .image-dontainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-dontainer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Фото на весь екран */
+            display: block;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .left-overlay {
+            left: 0;
+            width: 400px;
+        }
+
+        .right-overlay {
+            right: 0;
+            width: 320px;
+        }
+
+        .services {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .service {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            transition: transform 0.3s ease-out, background 0.3s ease-out;
+            will-change: transform;
+        }
+
+        .service:hover {
+            transform: scale(1.05); /* Збільшення на 5% замість підняття */
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        h2, h3, p {
+            margin: 5px 0;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            .left-overlay, .right-overlay {
+                width: 100%;
+                position: relative;
+                background: rgba(0, 0, 0, 0.6);
+                padding: 20px;
+            }
+
+            .image-dontainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .services {
+                align-items: center;
+            }
+        }
+
+        /* Новий слайдер */
+        .carousel-wrapper {
+            --width: 300px;
+            --gap: 40px; /* Збільшений відступ між фото */
+            --num-items: 10;
+            --ani-speed: 10s;
+            width: 800px;
+            overflow: hidden;
+            position: relative;
+            margin: 2rem auto;
+        }
+
+        .carousel-wrapper::before,
+        .carousel-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 5%;
+            height: 100%;
+            z-index: 1;
+            top: 0;
+        }
+
+        .carousel-wrapper::before {
+            left: 0;
+            background-image: linear-gradient(to right, rgba(229, 229, 229, 1) 0%, transparent 100%);
+        }
+
+        .carousel-wrapper::after {
+            right: 0;
+            background-image: linear-gradient(to left, rgba(229, 229, 229, 1) 0%, transparent 100%);
+        }
+
+        .carousel {
+            display: flex;
+            align-items: center;
+            gap: var(--gap);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .item {
+            flex: 0 0 var(--width);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .item > img {
+            width: 100%;
+            height: 350px; /* Фіксована висота фото */
+            object-fit: cover; /* Забезпечує однаковий розмір фото */
+            border-radius: 10px; /* Закруглені кути */
+        }
+
+        .item.active {
+            transform: scale(1.2); /* Збільшення центрального фото */
+        }
+
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .arrow.left {
+            left: 10px;
+        }
+
+        .arrow.right {
+            right: 10px;
+        }
+
+        .item-link {
+            display: block; /* Робимо посилання блоковими */
+            text-decoration: none; /* Видаляємо підкреслення */
+            color: inherit; /* Успадковуємо колір тексту */
+            flex: 0 0 var(--width); /* Забезпечуємо однакову ширину */
+        }
+
+        .item-link:hover {
+            text-decoration: none; /* Видаляємо підкреслення при наведенні */
+        }
+  
+
+
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px; /* Відступ між фото і текстом */
+            padding-bottom: 20px; /* Додатковий простір для тексту */
+            position: relative; /* Для коректного позиціонування тексту */
+        }
+
+        .image-container {
+            width: 100%; /* Ширина контейнера дорівнює ширині фото */
+            height: 350px; /* Висота контейнера дорівнює висоті фото */
+            overflow: hidden; /* Забезпечує, що збільшене фото не виходить за межі */
+            border-radius: 10px; /* Закруглені кути */
+        }
+
+        .item img {
+            width: 100%;
+            height: 100%; /* Фото заповнює контейнер */
+            object-fit: cover; /* Забезпечує однаковий розмір фото */
+            transition: transform 0.3s ease-in-out; /* Плавний перехід для масштабування */
+        }
+
+        .item.active img {
+            transform: scale(1.2); /* Збільшення центрального фото */
+        }
+
+        .item-text {
+            font-size: 1.2rem; /* Розмір тексту */
+            font-weight: 500; /* Товщина тексту */
+            color: #333; /* Колір тексту */
+            margin: 0; /* Видаляємо зовнішні відступи */
+            position: absolute; /* Абсолютне позиціонування тексту */
+            bottom: 30px; /* Розташування тексту під фото */
+            left: 50%; /* Вирівнювання тексту по центру */
+            transform: translateX(-50%); /* Точне центрування тексту */
+            z-index: 2; /* Забезпечує, що текст залишається поверх фото */
+            background-color: rgba(255, 255, 255, 0.8); /* Фон тексту для кращої видимості */
+            padding: 5px 10px; /* Відступи всередині текстового блоку */
+            border-radius: 5px; /* Закруглені кути текстового блоку */
+        }
+    </style>
+</head>
+
+<body class="flex flex-col items-center">
+
+    <!-- Навігація -->
+    <nav class="flex items-center justify-between bg-white shadow-lg p-4 w-full max-w-screen-lg">
+        <div class="flex items-center">
+            <a href="index.html" class="bg-yellow-400 p-2 rounded-full text-black font-bold text-lg">LOGO</a>
+        </div>
+        <ul class="flex-1 flex justify-center space-x-6 text-gray-800 font-semibold">
+            <li><a href="menu.html" class="hover:text-yellow-500">Наші послуги</a></li>
+            <li><a href="#" class="hover:text-yellow-500">Про нас</a></li>
+        </ul>
+        <div>
+            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Оформити замовлення</a>
+        </div>
+    </nav>
+
+    <!-- Блок з фото та текстом -->
+    <div class="image-dontainer">
+        <img src="IMJ/angar.png" alt="Фото металоконструкцій">
+
+        <!-- Лівий блок з текстом -->
+        <div class="overlay left-overlay">
+            <h2>Металоконструкції для вашого бізнесу та дому</h2>
+            <p>Ласкаво просимо до METALBUILD – місця, де надійність, якість та інновації об’єднуються!</p>
+            <p>🛠 Індивідуальне виготовлення – створюємо конструкції за вашими кресленнями.</p>
+            <p>🚚 Доставка та монтаж – швидко та професійно.</p>
+            <p>💎 Гарантія якості – тільки найкращі матеріали та сучасні технології.</p>
+            <p>📞 Зв’яжіться з нами вже сьогодні!</p>
+            <p>👉 Обирайте надійні металоконструкції для вашого проекту!</p>
+        </div>
+
+        <!-- Правий блок з послугами -->
+        <div class="overlay right-overlay">
+            <div class="services" onclick="openModal(); return false;">
+                <div class="service">
+                    <h3>Каркаси будівель</h3>
+                    <p>Міцні та надійні конструкції для промислових об'єктів.</p>
+                </div>
+                <div class="service">
+                    <h3>Металеві сходи</h3>
+                    <p>Сучасні та естетичні рішення для будь-якого інтер'єру.</p>
+                </div>
+                <div class="service">
+                    <h3>Огорожі та ворота</h3>
+                    <p>Надійні та стильні рішення для вашого дому.</p>
+                </div>
+                <div class="service">
+                    <h3>Металеві конструкції на замовлення</h3>
+                    <p>Індивідуальні рішення для будь-яких потреб.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Новий слайдер -->
+    <div class="carousel-wrapper">
+        <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel">
+            <!-- Дубльовані елементи для безкінечного циклу -->
+            <a href="tov_karkaz.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/karkaz.jpg" alt="Каркаси">
+                    </div>
+                    <p class="item-text">Каркаси</p> <!-- Текст під фото -->
+                </div>
+            </a>
+            <a href="tov_lesnica.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/lesnica.jpg" alt="Сходи">
+                        <p class="item-text">Сходи</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+            <a href="tov_zabor.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/zabor.jpg" alt="Огорожі">
+                        <p class="item-text">Огорожі</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+            <a href="tov_indkarkaz.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/indkarkaz.webp" alt="На замовлення">
+                        <p class="item-text">На замовлення</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+            <!-- Дубльовані елементи для безкінечного циклу -->
+            <a href="tov_karkaz.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/karkaz.jpg" alt="Каркаси">
+                    </div>
+                    <p class="item-text">Каркаси</p> <!-- Текст під фото -->
+                </div>
+            </a>
+            <a href="tov_lesnica.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/lesnica.jpg" alt="Сходи">
+                        <p class="item-text">Сходи</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+            <a href="tov_zabor.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/zabor.jpg" alt="Огорожі">
+                        <p class="item-text">Огорожі</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+            <a href="tov_indkarkaz.html" class="item-link">
+                <div class="item">
+                    <div class="image-container">
+                        <img src="IMJ/indkarkaz.webp" alt="На замовлення">
+                        <p class="item-text">На замовлення</p> <!-- Текст під фото -->
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- Карта з Африкою -->
+    <section class="w-full max-w-screen-lg mt-8">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Наше місце знаходження</h2>
+        <div class="w-full h-96">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31480278.369167928!2d17.087800000000006!3d1.650800000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x107be112b0e742e5%3A0x5e05ed5f9e28b83!2sAfrica!5e0!3m2!1sen!2sua!4v1647099286186!5m2!1sen!2sua"
+                width="100%" 
+                height="100%" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Підвал -->
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+        <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            </a>
+            <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ/viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Модальне вікно -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+            <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
+            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
+            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
+            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+        </div>
+    </div>
+
+    <!-- Скрипт для нового слайдера -->
+    <script>
+        let currentIndex = 1; // Починаємо з першого елемента (не з дубльованого)
+        const carousel = document.querySelector('.carousel');
+        const items = document.querySelectorAll('.item');
+        const itemWidth = items[0].offsetWidth + 40; // Ширина елемента + відступ
+        const totalItems = items.length;
+
+        // Встановлюємо початкову позицію слайдера
+        carousel.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+
+        // Функція для оновлення активного елемента
+        function updateActiveItem() {
+            const centerIndex = Math.floor(currentIndex + (800 / itemWidth) / 2); // Визначаємо центральний елемент
+            items.forEach((item, index) => {
+                if (index === centerIndex) {
+                    item.classList.add('active'); // Додаємо клас "active" для центрального елемента
+                } else {
+                    item.classList.remove('active'); // Видаляємо клас "active" для інших елементів
+                }
+            });
+        }
+
+        // Оновлюємо активний елемент при завантаженні сторінки
+        updateActiveItem();
+
+        function moveSlide(direction) {
+            // Вимикаємо анімацію для миттєвого переходу, якщо потрібно
+            if (currentIndex <= 0 || currentIndex >= totalItems - 1) {
+                carousel.style.transition = 'none';
+            } else {
+                carousel.style.transition = 'transform 0.5s ease-in-out';
+            }
+
+            currentIndex += direction;
+
+            // Перевірка, чи досягнуто кінця або початку
+            if (currentIndex <= 0) {
+                currentIndex = totalItems - 2; // Переходимо до передостаннього елемента
+            } else if (currentIndex >= totalItems - 1) {
+                currentIndex = 1; // Переходимо до другого елемента
+            }
+
+            // Плавний перехід
+            carousel.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+
+            // Оновлюємо активний елемент
+            updateActiveItem();
+        }
+    </script>
+
+
+    <script>
+
+        function openModal() {
+        document.getElementById("orderModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+        document.getElementById("orderModal").classList.add("hidden");
+        }
+
+        function submitOrder() {
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const comment = document.getElementById("comment").value || "немає";
+
+        if (!name || !phone) {
+            alert("Будь ласка, заповніть всі обов’язкові поля!");
+            return;
+        }
+
+        const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
+        const chat_id = "1570021129"; // Введи свій chat_id
+        const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
+        
+        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: chat_id,
+                text: text,
+                parse_mode: "Markdown"
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.ok) {
+                alert("✅ Замовлення успішно надіслано в Telegram!");
+                closeModal();
+            } else {
+                alert("❌ Помилка відправки!");
+            }
+        })
+        .catch(error => console.error("Помилка:", error));
+        }
+</script>
+
+</body>
+</html>
