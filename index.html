@@ -6,23 +6,43 @@
     <title>Меню сайту</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-
-        
         body {
-            background:  rgb(229, 229, 229); /* Колір фону */
+            background: rgb(229, 229, 229);
+            font-family: sans-serif;
         }
+
+        /* Навігація */
+        nav {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Слайдер */
         .slider {
             position: relative;
-            width: 100vw; /* Робимо ширину 100% екрану */
-            height: 100vh; /* Висота слайдера на весь екран */
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
         }
 
         .slides {
             display: flex;
-            transition: transform 0.5s ease-in-out;
             height: 87%;
             width: 100%;
+            transition: transform 0.5s ease-in-out;
         }
 
         .slide {
@@ -34,13 +54,12 @@
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Щоб картинка займала всю площу без деформацій */
+            object-fit: cover;
         }
 
-        /* Стилі для тексту */
         .text-overlay {
             position: absolute;
-            bottom: 130px;
+            bottom: 70px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(128, 128, 128, 0.7);
@@ -52,106 +71,360 @@
             white-space: nowrap;
         }
 
-        /* Кнопки навігації */
         .prev, .next {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
+            background: rgba(0,0,0,0.5);
             color: white;
             border: none;
             padding: 15px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 1.2rem;
             z-index: 10;
         }
 
-        .prev { left: 10px; }
-        .next { right: 10px; }
+        .prev { left: 20px; }
+        .next { right: 20px; }
 
-        .text-overlay {
-            position: absolute;
-            bottom: 70px; /* Для десктопів */
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(128, 128, 128, 0.7);
+        /* Основний контент */
+        .content-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 1rem;
+        }
+
+        .image-text-block {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .image-text-block {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+            }
+            
+            .image-text-block:nth-child(even) {
+                flex-direction: row-reverse;
+            }
+            
+            .image-text-block img {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        .image-text-block img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Бокове меню */
+        .sidebar {
+            width: 280px;
+            background: rgb(20,33,61);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .sidebar h3 {
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 24px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
             text-align: center;
-            white-space: nowrap;
         }
 
-        /* Адаптивний дизайн для мобільних пристроїв */
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .sidebar a:hover {
+            color: orange;
+        }
+
+        .submenu {
+            position: absolute;
+            right: 100%;
+            top: 0;
+            background: rgb(20,33,61);
+            width: 200px;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar li:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Карта */
+        .map-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .map-container h2 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Футер */
+        footer {
+            background: rgb(51, 51, 51);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .footer-contacts {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links img {
+            width: 32px;
+            height: 32px;
+        }
+
+        /* Модальне вікно */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            display: none;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal button {
+            background: rgb(234, 179, 8);
+            color: black;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal button:hover {
+            background: rgb(202, 138, 4);
+        }
+
+        /* Адаптивні стилі */
+        @media (max-width: 1024px) {
+            .content-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-top: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                margin: 1rem 0;
+                text-align: center;
+            }
+            
             .slider {
-                height: 300px; /* Менша висота для мобільних */
+                height: 50vh;
             }
-
+            
             .text-overlay {
-                bottom: 30px; /* Піднімаємо вище */
-                font-size: 16px; /* Менший текст */
-                padding: 5px 10px; /* Менші відступи */
-                white-space: normal; /* Дозволяє тексту переноситися */
-                width: 80%; /* Обмежує ширину */
+                bottom: 30px;
+                font-size: 1.2rem;
+                padding: 0.8rem 1.2rem;
+                white-space: normal;
+                width: 80%;
             }
-
+            
             .prev, .next {
-                padding: 10px; /* Менші кнопки для мобільних */
-                font-size: 14px;
+                padding: 10px;
+                font-size: 1rem;
+            }
+            
+            .submenu {
+                position: static;
+                width: 100%;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                box-shadow: none;
+                padding: 0.5rem 0 0 1rem;
+            }
+            
+            .sidebar li.active .submenu {
+                display: block;
             }
         }
+
+
+            /* Бокове меню */
+        .sidebar {
+            
+            background: rgb(20,33,61);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+
+        .sidebar h3 {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            text-align: center; /* Додано центрування тексту */
+        }
+
+        .sidebar li {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+            text-align: center; /* Додано центрування тексту */
+        }
+
+        .submenu ul {
+            text-align: center;
+        }
+
+        .submenu li {
+            text-align: center;
+        }
+
 
         @media (max-width: 480px) {
             .slider {
-                height: 250px; /* Ще менша висота для маленьких екранів */
+                height: 40vh;
             }
-
+            
             .text-overlay {
-                bottom: 20px; /* Ще вище для мобільних */
-                font-size: 14px; /* Ще менший текст */
-                padding: 5px 8px;
-                width: 90%;
+                bottom: 20px;
+                font-size: 1rem;
+                padding: 0.6rem 1rem;
             }
-
-            .prev, .next {
-                padding: 8px;
-                font-size: 12px;
+            
+            .map-frame {
+                height: 300px;
             }
         }
-
-
-         @media (max-width: 768px) {
-            aside {
-                width: 100%;
-                padding: 10px;
-            }
-            .relative {
-                text-align: center;
-            }
-            .relative > div[id] {
-                position: static;
-                width: 100%;
-            }
-        }
-
-
     </style>
 </head>
-<body class="flex flex-col items-center">
-
+<body>
     <!-- Навігація -->
-    <nav class="flex items-center justify-between bg-white shadow-lg p-4 w-full max-w-screen-lg">
-        <div class="flex items-center">
-            <a href="index.html" class="bg-yellow-400 p-2 rounded-full text-black font-bold text-lg">LOGO</a>
+    <nav>
+        <div>
+            <a href="index.html" style="background: rgb(234, 179, 8); padding: 0.5rem; border-radius: 9999px; color: black; font-weight: bold; font-size: 1.1rem;">LOGO</a>
         </div>
-        <ul class="flex-1 flex justify-center space-x-6 text-gray-800 font-semibold">
-            <li><a href="menu.html" class="hover:text-yellow-500">Наші послуги</a></li>
-            <li><a href="#" class="hover:text-yellow-500">Про нас</a></li>
+        <ul class="nav-links">
+            <li><a href="menu.html" style="color: rgb(55, 65, 81); font-weight: 600;">Наші послуги</a></li>
+            <li><a href="#" style="color: rgb(55, 65, 81); font-weight: 600;">Про нас</a></li>
         </ul>
         <div>
-            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Оформити замовлення</a>
+            <a href="#" onclick="openModal(); return false;" style="background: rgb(234, 179, 8); color: black; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 600;">Оформити замовлення</a>
         </div>
     </nav>
 
@@ -161,7 +434,7 @@
         <div class="slides">
             <div class="slide">
                 <img src="IMJ/sl1.png.webp" alt="Slide 1">
-                <div class="text-overlay">Вітаємо вас на METALBUILD </div>
+                <div class="text-overlay">Вітаємо вас на METALBUILD</div>
             </div>
             <div class="slide">
                 <img src="IMJ/sv.jpg" alt="Slide 2">
@@ -174,7 +447,6 @@
         </div>
         <button class="next" onclick="nextSlide()">&#10095;</button>
     </div>
-
 
     <!-- Контейнер для фото + текст + меню -->
     <div class="flex flex-wrap w-full max-w-screen-xl mt-8 relative">
@@ -190,194 +462,104 @@
             </div>
         </div>
 
-<!-- Меню під слайдером -->
-    <aside class="w-full lg:w-60 bg-[rgb(20,33,61)] p-6 shadow-lg mt-6 ml-auto">
-        <h3 class="block text-[rgb(255,255,255)] text-lg font-bold mb-4 text-center">Наші послуги</h3>
-        <ul class="space-y-4">
-            <!-- Меблі -->
-            <li class="relative">
-                <a href="#" class="block text-white hover:text-orange-500" onclick="toggleMenu(event, 'furnitureMenu')">Меблі</a>
-                <div id="furnitureMenu" class="absolute right-full ml-2 top-0 opacity-0 invisible transition-opacity duration-300 bg-[rgb(20,33,61)] text-white w-40 p-2 shadow-lg text-center">
-                    <ul class="flex flex-col space-y-2">
-                        <li><a href="tovar_stol.html" class="block hover:text-orange-500">Стіл</a></li>
-                        <li><a href="tovar_meb3.html" class="block hover:text-orange-500">Стілець</a></li>
-                        <li><a href="tovar_meb1.html" class="block hover:text-orange-500">Диван</a></li>
-                        <li><a href="tovar_meb2.html" class="block hover:text-orange-500">Шафа</a></li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Металоконструкції -->
-            <li class="relative">
-                <a href="#" class="block text-white hover:text-orange-500" onclick="toggleMenu(event, 'metalMenu')">Металоконструкції</a>
-                <div id="metalMenu" class="absolute right-full ml-2 top-0 opacity-0 invisible transition-opacity duration-300 bg-[rgb(20,33,61)] text-white w-40 p-2 shadow-lg text-center">
-                    <ul class="flex flex-col space-y-2">
-                        <li><a href="tov_lesnica.html" class="block hover:text-orange-500">Сходи</a></li>
-                        <li><a href="tov_zabor.html" class="block hover:text-orange-500">Огорожі</a></li>
-                        <li><a href="tov_karkaz.html" class="block hover:text-orange-500">Каркаси</a></li>
-                        <li><a href="tov_indkarkaz.html" class="block hover:text-orange-500">На замовлення</a></li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Зварювальні послуги -->
-            <li class="relative">
-                <a href="#" class="block text-white hover:text-orange-500" onclick="toggleMenu(event, 'weldingMenu')">Зварювальні послуги</a>
-                <div id="weldingMenu" class="absolute right-full ml-2 top-0 opacity-0 invisible transition-opacity duration-300 bg-[rgb(20,33,61)] text-white w-40 p-2 shadow-lg text-center">
-                    <ul class="flex flex-col space-y-2">
-                        <li><a href="electro-welding.html" class="block hover:text-orange-500">Електрозварювання</a></li>
-                        <li><a href="argon-welding.html" class="block hover:text-orange-500">Аргонне зварювання</a></li>
-                        <li><a href="art-welding.html" class="block hover:text-orange-500">Художнє зварювання</a></li>
-                        <li><a href="metal-repair.html" class="block hover:text-orange-500">Ремонт конструкцій</a></li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Лазерна різка -->
-            <li class="relative">
-                <a href="#" class="block text-white hover:text-orange-500" onclick="toggleMenu(event, 'laserMenu')">Лазерна різка</a>
-                <div id="laserMenu" class="absolute right-full ml-2 top-0 opacity-0 invisible transition-opacity duration-300 bg-[rgb(20,33,61)] text-white w-40 p-2 shadow-lg text-center">
-                    <ul class="flex flex-col space-y-2">
-                        <li><a href="laser_cutting_service.html" class="block hover:text-orange-500">Різка металу</a></li>
-                        <li><a href="engraving_service.html" class="block hover:text-orange-500">Різка пластику</a></li>
-                    </ul>
-                </div>
-            </li>
-            <!-- Стань нашим спів робітником -->
-            <li class="relative">
-                <a href="#" class="block text-[rgb(255,255,255)] hover:text-orange-500" onclick="toggleMenu(event, 'soupMenu')">Стань нашим спів робітником</a>
-                <div id="soupMenu" class="absolute right-full mr-2 top-0 opacity-0 invisible transition-opacity duration-300">
-                    <ul class="bg-[rgb(20,33,61)] text-white w-40 p-2 space-y-2 shadow-lg text-center">
-                        <li><a href="zayva.html" class="block hover:text-orange-500">Подати заяву</a></li>
-                        
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </aside>
-        
-
+        <!-- Бокове меню -->
+        <aside class="sidebar">
+            <h3>Наші послуги</h3>
+            <ul>
+                <li class="menu-item">
+                    <a href="#" onclick="toggleSubmenu(event, 'furnitureMenu')">Меблі</a>
+                    <div id="furnitureMenu" class="submenu">
+                        <ul>
+                            <li><a href="tovar_stol.html">Стіл</a></li>
+                            <li><a href="tovar_meb3.html">Стілець</a></li>
+                            <li><a href="tovar_meb1.html">Диван</a></li>
+                            <li><a href="tovar_meb2.html">Шафа</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#" onclick="toggleSubmenu(event, 'metalMenu')">Металоконструкції</a>
+                    <div id="metalMenu" class="submenu">
+                        <ul>
+                            <li><a href="tov_lesnica.html">Сходи</a></li>
+                            <li><a href="tov_zabor.html">Огорожі</a></li>
+                            <li><a href="tov_karkaz.html">Каркаси</a></li>
+                            <li><a href="tov_indkarkaz.html">На замовлення</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#" onclick="toggleSubmenu(event, 'weldingMenu')">Зварювальні послуги</a>
+                    <div id="weldingMenu" class="submenu">
+                        <ul>
+                            <li><a href="electro-welding.html">Електрозварювання</a></li>
+                            <li><a href="argon-welding.html">Аргонне зварювання</a></li>
+                            <li><a href="art-welding.html">Художнє зварювання</a></li>
+                            <li><a href="metal-repair.html">Ремонт конструкцій</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#" onclick="toggleSubmenu(event, 'laserMenu')">Лазерна різка</a>
+                    <div id="laserMenu" class="submenu">
+                        <ul>
+                            <li><a href="laser_cutting_service.html">Різка металу</a></li>
+                            <li><a href="engraving_service.html">Різка пластику</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#" onclick="toggleSubmenu(event, 'soupMenu')">Стань нашим співробітником</a>
+                    <div id="soupMenu" class="submenu">
+                        <ul>
+                            <li><a href="zayva.html">Подати заяву</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </aside>
     </div>
 
-    <!-- Карта з Африкою -->
-    <section class="w-full max-w-screen-lg mt-8">
-        <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">наше місце знаходження</h2>
-        <div class="w-full h-96">
-            <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31480278.369167928!2d17.087800000000006!3d1.650800000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x107be112b0e742e5%3A0x5e05ed5f9e28b83!2sAfrica!5e0!3m2!1sen!2sua!4v1647099286186!5m2!1sen!2sua"
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy">
-        </iframe>
-    </div>
-</section>
-    
+    <!-- Карта -->
+    <section class="map-container">
+        <h2>наше місце знаходження</h2>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31480278.369167928!2d17.087800000000006!3d1.650800000000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x107be112b0e742e5%3A0x5e05ed5f9e28b83!2sAfrica!5e0!3m2!1sen!2sua!4v1647099286186!5m2!1sen!2sua" allowfullscreen="" loading="lazy"></iframe>
+    </section>
+
+    <!-- Футер -->
     <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
     <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
     <div class="flex justify-center space-x-6 mt-4">
         <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
-            <img src="instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            <img src="IMJ\instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
         </a>
         <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
-            <img src="telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            <img src="IMJ\telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
         </a>
         <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
-            <img src="viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            <img src="IMJ\viber-icon.png" alt="Viber" class="w-8 h-8 inline">
         </a>
     </div>
 </footer>
 
-        <!-- Модальне вікно -->
-    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
-            <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
-            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
-            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
-            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
-            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
-            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
-            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+    <!-- Модальне вікно -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 1.5rem;">Оформлення замовлення</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я">
+            <input type="tel" id="phone" placeholder="Ваш телефон">
+            <textarea id="comment" placeholder="Додаткові побажання (необов'язково)" rows="4"></textarea>
+            <button onclick="submitOrder()">Замовити</button>
+            <button onclick="closeModal()" style="background: none; color: #666; text-decoration: underline; margin-top: 1rem; padding: 0;">Закрити</button>
         </div>
     </div>
 
-    
-    <!-- код  под меню -->
     <script>
-       function toggleMenu(event, menuId) {
-    event.preventDefault(); // Запобігає перезавантаженню
-
-    // Закриваємо всі відкриті підменю, але не чіпаємо інші div
-    document.querySelectorAll(".relative > div[id]").forEach(menu => {
-        if (menu.id !== menuId) {
-            menu.classList.add("opacity-0", "invisible");
-        }
-    });
-
-    // Отримуємо поточне меню
-    let menu = document.getElementById(menuId);
-
-    // Перемикаємо видимість тільки для поточного меню
-    menu.classList.toggle("opacity-0");
-    menu.classList.toggle("invisible");
-}
-
-    </script>
-
-
-    <!-- код для тгбот адміна -->
-    <script>
-
-        function openModal() {
-        document.getElementById("orderModal").classList.remove("hidden");
-        }
-
-        function closeModal() {
-        document.getElementById("orderModal").classList.add("hidden");
-        }
-
-        function submitOrder() {
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const comment = document.getElementById("comment").value || "немає";
-
-        if (!name || !phone) {
-            alert("Будь ласка, заповніть всі обов’язкові поля!");
-            return;
-        }
-
-        const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
-        const chat_id = "1570021129"; // Введи свій chat_id
-        const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
-        
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: chat_id,
-                text: text,
-                parse_mode: "Markdown"
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                alert("✅ Замовлення успішно надіслано в Telegram!");
-                closeModal();
-            } else {
-                alert("❌ Помилка відправки!");
-            }
-        })
-        .catch(error => console.error("Помилка:", error));
-        }
-</script>
-
-
-
-
-    <!-- JavaScript для слайдера -->
-    <script>
+        // Слайдер
         let currentIndex = 0;
-        const slides = document.querySelector(".slides");
-        const totalSlides = document.querySelectorAll(".slide").length;
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
 
         function showSlide(index) {
             if (index >= totalSlides) currentIndex = 0;
@@ -394,7 +576,77 @@
         function prevSlide() {
             showSlide(currentIndex - 1);
         }
-    </script>
 
+        // Підменю для мобільних
+        function toggleSubmenu(event, menuId) {
+            event.preventDefault();
+            if (window.innerWidth <= 768) {
+                const menuItem = event.target.closest('.menu-item');
+                const submenu = document.getElementById(menuId);
+                
+                if (menuItem.classList.contains('active')) {
+                    menuItem.classList.remove('active');
+                    submenu.style.display = 'none';
+                } else {
+                    document.querySelectorAll('.menu-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    document.querySelectorAll('.submenu').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                    
+                    menuItem.classList.add('active');
+                    submenu.style.display = 'block';
+                }
+            }
+        }
+
+        // Модальне вікно
+        function openModal() {
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function submitOrder() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const comment = document.getElementById('comment').value || 'немає';
+
+            if (!name || !phone) {
+                alert('Будь ласка, заповніть всі обов\'язкові поля!');
+                return;
+            }
+
+            const token = '7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M';
+            const chat_id = '1570021129';
+            const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📝 *Коментар:* ${comment}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert('✅ Замовлення успішно надіслано в Telegram!');
+                    closeModal();
+                } else {
+                    alert('❌ Помилка відправки!');
+                }
+            })
+            .catch(error => console.error('Помилка:', error));
+        }
+
+        // Ініціалізація слайдера
+        showSlide(0);
+    </script>
 </body>
 </html>
