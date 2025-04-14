@@ -74,7 +74,7 @@
             background-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* Стилі для слайдера (як у вашому прикладі) */
+        /* Слайдер */
         .carousel-wrapper {
             --width: 300px;
             --gap: 40px;
@@ -179,45 +179,96 @@
             flex: 0 0 var(--width);
         }
 
-        .item-link:hover {
-            text-decoration: none;
-        }
-
-        .item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 10px;
-            padding-bottom: 20px;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
+        /* Адаптивність */
+        @media (max-width: 1024px) {
             .left-overlay, .right-overlay {
-                width: 100%;
-                position: relative;
-                background: rgba(0, 0, 0, 0.6);
-                padding: 20px;
+                width: 350px;
+                padding: 30px;
             }
             
             .carousel-wrapper {
-                width: 100%;
-                padding: 0 20px;
+                width: 90%;
+                --width: 280px;
+                --gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
             }
             
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
             .image-container {
-                height: 50vh;
+                height: auto;
+                min-height: 70vh;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .overlay {
+                position: relative;
+                width: 100%;
+                height: auto;
+                background: rgba(0, 0, 0, 0.7);
+                padding: 20px;
+            }
+
+            .left-overlay {
+                order: 1;
+            }
+
+            .right-overlay {
+                order: 2;
+            }
+
+            .carousel-wrapper {
+                width: 100%;
+                padding: 0 20px;
+                --width: 250px;
+                --gap: 20px;
+            }
+
+            .image-container-slide {
+                height: 300px;
             }
         }
 
-        .carousel {
-            will-change: transform;
-        }
-
-        .item {
-            backface-visibility: hidden;
-            transform: translateZ(0);
+        @media (max-width: 480px) {
+            .left-overlay, .right-overlay {
+                padding: 15px;
+            }
+            
+            .service {
+                padding: 12px;
+            }
+            
+            .carousel-wrapper {
+                --width: 220px;
+                --gap: 15px;
+            }
+            
+            .image-container-slide {
+                height: 250px;
+            }
+            
+            .item-text {
+                font-size: 1rem;
+                bottom: 25px;
+            }
+            
+            #orderModal > div {
+                width: 90%;
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -274,7 +325,7 @@
         </div>
     </div>
 
-    <!-- Слайдер (як у вашому прикладі) -->
+    <!-- Слайдер -->
     <div class="carousel-wrapper">
         <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
         <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
@@ -399,8 +450,8 @@
         </div>
     </div>
 
-    <!-- Скрипт для слайдера (як у вашому прикладі) -->
     <script>
+        // Слайдер
         let currentIndex = 1;
         const carousel = document.querySelector('.carousel');
         const items = document.querySelectorAll('.item');
@@ -444,9 +495,14 @@
                 isAnimating = false;
             }, { once: true });
         }
-    </script>
 
-    <script>
+        // Адаптація при зміні розміру вікна
+        window.addEventListener('resize', function() {
+            const newItemWidth = items[0].offsetWidth + 40;
+            carousel.style.transform = `translateX(${-newItemWidth * currentIndex}px)`;
+        });
+
+        // Модальне вікно
         function openModal() {
             document.getElementById("orderModal").classList.remove("hidden");
         }
