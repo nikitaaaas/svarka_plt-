@@ -1,0 +1,362 @@
+ <!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню сайту</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html, body { /* додати до остальних товарів */
+            height: auto !important;
+            overflow-y: visible !important;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .product-container {
+            display: flex;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: visible !important; /* тут для всіх товарів змінити overflow: */
+        }
+
+        .product-image {
+            width: 50%;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .product-details {
+            width: 50%;
+            padding: 30px;
+        }
+
+        .product-details h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #e67e22;
+            margin: 10px 0;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        /* Стилі для вибору розміру */
+        .size-selection {
+            margin: 20px 0;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            border: 2px solid #e0e0e0;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .size-option:hover {
+            border-color: #3498db;
+        }
+
+        .size-option.selected {
+            border-color: #3498db;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .product-image, .product-details {
+                width: 100%;
+            }
+            
+            .size-options {
+                justify-content: center;
+            }
+        }
+
+        .reviews-section {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-item h4 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .review-item p {
+            color: #555;
+        }
+
+        #commento {
+            min-height: 400px; /* Мінімальна висота */
+            max-height: 600px; /* Обмежуємо максимальну висоту */    
+        }
+
+        #commento {
+            margin-bottom: 120px; /* Додає відступ перед товаром */
+        }
+
+        /* Стилі для відгуків */
+        .reviews-section {
+            padding: 30px;
+            border-top: 1px solid #eee;
+        }
+
+        .reviews-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center">
+
+    <div class="product-container">
+        <div class="product-image">
+            <img id="product-img" src="IMJ/pen1.png" alt="pencell">
+        </div>
+        <div class="product-details">
+            <h1>пеніс</h1>
+            <p class="price" id="product-price">₴12,500</p>
+            
+            <!-- Блок вибору розміру -->
+            <div class="size-selection">
+                <h3>Оберіть розмір:</h3>
+                <div class="size-options">
+                    <div class="size-option selected" data-size="140x200" data-price="8999" data-img="IMJ/pen1.png">4см</div>
+                    <div class="size-option" data-size="160x200" data-price="9999" data-img="IMJ/pen2.png">8см</div>
+                    <div class="size-option" data-size="200x300" data-price="12999" data-img="IMJ/pen3.png">14см</div>
+
+                </div>
+            </div>
+            
+            <p class="description">Зручний та класний хуй.</p>
+            <ul class="features">
+                <li>✔️ Матеріал: Ахуєнний</li>
+                <li>✔️ Каркас: Єбєйший</li>
+                <li>✔️ Колір: Піздатий</li>
+                <li>✔️ Гарантія: 2 роки</li>
+            </ul>
+            <a href="#" onclick="openModal(); return false;" class="bg-yellow-400 text-black px-4 py-2 rounded hover:bg-yellow-500">Оформити замовлення</a>
+        </div>
+    </div>
+
+    <!-- Модальне вікно -->
+    <div id="orderModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center relative">
+            <h2 class="text-lg font-bold mb-4">Оформлення замовлення</h2>
+            <input type="text" id="name" placeholder="Ваше ім'я" class="w-full border p-2 mb-2">
+            <input type="tel" id="phone" placeholder="Ваш телефон" class="w-full border p-2 mb-2">
+            <input type="hidden" id="selected-size" value="200x300">
+            <input type="hidden" id="selected-price" value="12999">
+            <textarea id="comment" placeholder="Додаткові побажання (необов’язково)" class="w-full border p-2 mb-4 h-24"></textarea>
+            <button onclick="submitOrder()" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">Замовити</button>
+            <button onclick="closeModal()" class="text-gray-500 mt-2 block hover:underline">Закрити</button>
+            <span onclick="closeModal()" class="absolute top-2 right-3 text-2xl cursor-pointer text-gray-600 hover:text-gray-900">&times;</span>
+        </div>
+    </div>
+
+    <!-- JavaScript для обробки відгуків та модального вікна -->
+    <script>
+        // Функції для модального вікна
+        function openModal() {
+            document.getElementById("orderModal").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("orderModal").classList.add("hidden");
+        }
+
+        function submitOrder() {
+            const name = document.getElementById("name").value;
+            const phone = document.getElementById("phone").value;
+            const comment = document.getElementById("comment").value || "немає";
+            const size = document.getElementById("selected-size").value;
+            const price = document.getElementById("selected-price").value;
+
+            if (!name || !phone) {
+                alert("Будь ласка, заповніть всі обов’язкові поля!");
+                return;
+            }
+
+            const token = "7702625647:AAFkPxFLrpnSP8eL5UXbhhpmfktLxC0ts6M"; // Введи свій токен
+            const chat_id = "1570021129"; // Введи свій chat_id
+            const text = `🔔 *НОВЕ ЗАМОВЛЕННЯ!*\n👤 *Ім'я:* ${name}\n📞 *Телефон:* ${phone}\n📏 *Розмір:* ${size}\n💰 *Ціна:* ${price} грн\n📝 *Коментар:* ${comment}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text,
+                    parse_mode: "Markdown"
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("✅ Замовлення успішно надіслано в Telegram!");
+                    closeModal();
+                } else {
+                    alert("❌ Помилка відправки!");
+                }
+            })
+            .catch(error => console.error("Помилка:", error));
+        }
+
+        // Функціонал вибору розміру
+        document.addEventListener('DOMContentLoaded', function() {
+            const sizeOptions = document.querySelectorAll('.size-option');
+            const productImage = document.getElementById('product-img');
+            const productPrice = document.getElementById('product-price');
+            const selectedSizeInput = document.getElementById('selected-size');
+            const selectedPriceInput = document.getElementById('selected-price');
+            
+            // Функція для оновлення відображення товару
+            function updateProduct(size, price, imgUrl) {
+                // Оновлюємо ціну
+                productPrice.textContent = new Intl.NumberFormat('uk-UA').format(price) + ' грн';
+                
+                // Оновлюємо зображення (якщо воно доступне)
+                if (imgUrl) {
+                    productImage.src = imgUrl;
+                    productImage.alt = 'Кровать ' + size;
+                }
+                
+                // Оновлюємо приховані поля форми
+                selectedSizeInput.value = size;
+                selectedPriceInput.value = price;
+                
+                // Оновлюємо обраний розмір
+                sizeOptions.forEach(option => {
+                    if (option.dataset.size === size) {
+                        option.classList.add('selected');
+                    } else {
+                        option.classList.remove('selected');
+                    }
+                });
+            }
+            
+            // Додаємо обробники подій для кожного варіанту розміру
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const size = this.dataset.size;
+                    const price = this.dataset.price;
+                    const imgUrl = this.dataset.img;
+                    
+                    updateProduct(size, price, imgUrl);
+                });
+            });
+        });
+    </script>
+
+    <br><br><br><br><br>
+
+    <!-- Секція відгуків -->
+    <div class="reviews-section">
+        <h2 class="reviews-title">Відгуки про товар</h2>
+    </div>
+    
+
+    <script defer src="https://cdn.commento.io/js/commento.js"></script>
+    <div id="commento"></div>
+    <div id="commento" data-page-url="https://nikitaaaas.github.io/svarka_plt-/"></div>
+    <div style="clear: both;"></div>
+
+    <footer class="bg-gray-800 text-white text-center p-6 mt-8 w-full">
+        <p class="text-lg">Телефон: <a href="tel:+380123456789" class="text-yellow-400 hover:underline">+380 12 345 67 89</a></p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://instagram.com" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\instagram-icon.png" alt="Instagram" class="w-8 h-8 inline">
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\telegram-icon.png" alt="Telegram" class="w-8 h-8 inline">
+            </a>
+            <a href="viber://chat?number=%2B380123456789" target="_blank" class="hover:text-yellow-400">
+                <img src="IMJ\viber-icon.png" alt="Viber" class="w-8 h-8 inline">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
